@@ -177,4 +177,4 @@ def line(label,value,m,t):
     return render_template('line.html', title='WAR', max=55000, labels=line_labels, values=line_values)
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080)
+    app.run()
