@@ -1,0 +1,211 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
+<center>
+     <h1 align="center">{{ title }}</h1>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<select id="chartType" class="dropdown-content">
+    <option value="line">Line</option>
+    <option value="bar">Bar</option>
+    <option value="radar">Radar</option>
+
+</select>
+    &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn primary"><a href="/">back to home</a></button>
+    </center>
+  <br>
+  <br>
+  <center>
+    <canvas id="myChart" width="700" height="300"></canvas>
+
+
+    <script>
+      // bar chart data
+
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var dataMap = {
+
+               'line': {
+                    method: 'Line',
+                    data:{
+                    labels : [
+                      {% for item in labels %}
+                       "{{ item }}",
+                      {% endfor %}
+                ],
+
+                    datasets : [{
+                    label: "data1",
+                      fillColor: "rgba(212,175,55,0)",
+                      strokeColor: "rgba(212,175,55,1)",
+                      pointColor: "rgba(212,175,55,1)",
+                      data : [
+                        {% for item in values[0] %}
+                           "{{ item }}",
+                          {% endfor %}
+                    ]
+                      },
+                      {
+                    label: "data2",
+                      fillColor: "rgba(92,192,192,0)",
+                      strokeColor: "rgba(92,192,192,1)",
+                      pointColor: "rgba(92,192,192,1)",
+                      data : [
+                        {% for item in values[1] %}
+                           "{{ item }}",
+                          {% endfor %}
+                    ]
+                      },
+                      {
+                    label: "data3",
+                      fillColor: "rgba(205, 127, 50,0)",
+                      strokeColor: "rgba(205, 127, 50,1)",
+                      pointColor: "rgba(205, 127, 50,1)",
+                      data : [
+                        {% for item in values[2] %}
+                           "{{ item }}",
+                          {% endfor %}
+                    ]
+                      }
+                    ],
+                    }
+                    },
+
+
+              'bar': {
+                    method: 'Bar',
+                    data:{
+                    labels : [
+                      {% for item in labels %}
+                       "{{ item }}",
+                      {% endfor %}
+                ],
+
+                    datasets : [{
+                    label: "data1",
+                      fillColor: "rgba(212,175,55,0)",
+                      strokeColor: "rgba(212,175,55,1)",
+                      pointColor: "rgba(212,175,55,1)",
+                      data : [
+                        {% for item in values[0] %}
+                           "{{ item }}",
+                          {% endfor %}
+                    ]
+                      },
+                      {
+                    label: "data2",
+                      fillColor: "rgba(92,192,192,0)",
+                      strokeColor: "rgba(92,192,192,1)",
+                      pointColor: "rgba(92,192,192,1)",
+                      data : [
+                        {% for item in values[1] %}
+                           "{{ item }}",
+                          {% endfor %}
+                    ]
+                      },
+                      {
+                    label: "data3",
+                      fillColor: "rgba(205, 127, 50,0)",
+                      strokeColor: "rgba(205, 127, 50,1)",
+                      pointColor: "rgba(205, 127, 50,1)",
+                      data : [
+                        {% for item in values[2] %}
+                           "{{ item }}",
+                          {% endfor %}
+                    ]
+                      }
+                    ],
+                    }
+                    },
+
+
+
+              'radar': {
+                    method: 'Radar',
+                    data:{
+                    labels : [
+                      {% for item in labels %}
+                       "{{ item }}",
+                      {% endfor %}
+                ],
+
+                    datasets : [{
+                    label: "data1",
+                      fillColor: "rgba(212,175,55,0)",
+                      strokeColor: "rgba(212,175,55,1)",
+                      pointColor: "rgba(212,175,55,1)",
+                      data : [
+                        {% for item in values[0] %}
+                           "{{ item }}",
+                          {% endfor %}
+                    ]
+                      },
+                      {
+                    label: "data2",
+                      fillColor: "rgba(92,192,192,0)",
+                      strokeColor: "rgba(92,192,192,1)",
+                      pointColor: "rgba(92,192,192,1)",
+                      data : [
+                        {% for item in values[1] %}
+                           "{{ item }}",
+                          {% endfor %}
+                    ]
+                      },
+                      {
+                    label: "data3",
+                      fillColor: "rgba(205, 127, 50,0)",
+                      strokeColor: "rgba(205, 127, 50,1)",
+                      pointColor: "rgba(205, 127, 50,1)",
+                      data : [
+                        {% for item in values[2] %}
+                           "{{ item }}",
+                          {% endfor %}
+                     ]
+                      }
+                    ],
+                    }
+                    },
+
+      }
+      Chart.defaults.global.animationSteps = 50;
+      Chart.defaults.global.tooltipYPadding = 16;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = true;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 16;
+     // get bar chart canvas
+    // var mychart = document.getElementById("chart").getContext("2d");
+
+       steps = 10
+       max = {{max}}
+
+     // draw bar chart
+       var currentChart;
+
+ function updateChart() {
+     if(currentChart){currentChart.destroy();}
+
+     var determineChart = $("#chartType").val();
+
+     var params = dataMap[determineChart]
+     currentChart = new Chart(ctx)[params.method](params.data, {});
+ }
+
+ $('#chartType').on('change', updateChart)
+ updateChart();
+
+
+    </script>
+  </center>
+</body>
+
+</html>
